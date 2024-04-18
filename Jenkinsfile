@@ -1,6 +1,11 @@
 pipeline {
     agent any
     stages {
+        stage("chechout"){
+            steps{
+                checkout scm
+            }
+        }
         stage('Install Dependencies') {
             steps {
                 // Install Node.js and npm
@@ -11,12 +16,6 @@ pipeline {
             steps {
                 // Build the React app
                 sh 'npm run build'
-            }
-        }
-        stage('Test') {
-            steps {
-                // Run tests if you have them
-                sh 'npm run test'
             }
         }
     }
