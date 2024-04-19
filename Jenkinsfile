@@ -9,13 +9,13 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 // Install Node.js and npm
-                sh 'sudo apt install npm'
+                bat 'sudo apt install npm'
             }
         }
         stage('Build') {
             steps {
                 // Build the React app
-                sh 'npm run build'
+                bat 'npm run build'
             }
         }
     }
