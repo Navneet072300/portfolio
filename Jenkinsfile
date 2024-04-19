@@ -10,6 +10,7 @@ pipeline {
             steps {
                 // Install Node.js and npm
                 sh 'sudo apt install npm -y'
+                sh 'npm install react-icons'
             }
         }
         stage('Build') {
