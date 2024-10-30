@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { FaGithub, FaLinkedin, FaEnvelope } from "react-icons/fa";
+import Image from "next/image";
 
 export default function Portfolio() {
   const [activeSection, setActiveSection] = useState("home");
@@ -64,12 +65,21 @@ export default function Portfolio() {
           transition={{ duration: 0.8 }}
           className="text-center"
         >
-          <h1 className="relative z-10 text-lg md:text-7xl  bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-600  text-center font-sans font-bold">
-            Navneet Shahi
+          <h1 className="relative z-10 text-lg md:text-3xl  bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-600  text-center font-sans font-semibold flex items-center justify-center">
+            hi, i'm navneet shahi
+            <Image src="/blob-wave.gif" alt="emoji" width={30} height={20} />
           </h1>
           <p className="text-neutral-500 max-w-lg mx-auto my-2 text-xl text-center relative z-10">
-            Full Stack Developer
+            full stack developer
           </p>
+          <p className="text-neutral-500 max-w-lg mx-auto my-2 text-sm text-center relative z-10">
+            I am an enthusiastic Computer Science Engineering student studying
+            my Bachelor's degree at Chandigarh University (2021 July - 2025 June
+            ) with a focus in DevOps. Highly motivated beginner Engineering
+            student with a strong desire to gain practical experience in the
+            field of software development, operations and analysis.
+          </p>
+
           <div className="flex justify-center space-x-4">
             <a
               href="https://github.com/Navneet072300"
@@ -129,6 +139,25 @@ export default function Portfolio() {
               resume{" "}
             </a>
           </p>
+          <div className=" mt-4">
+            <p className="text-white font-semibold max-w-lg mx-auto my-2 text-xl text-center">
+              Tech Stack
+            </p>
+            <div className=" flex items-center justify-center p-2 my-3 gap-3 h-[3rem]">
+              <Image src="/react.svg" alt="emoji" width={50} height={30} />
+              <Image src="/node.svg" alt="emoji" width={50} height={30} />
+              <Image
+                src="/tailwindcss.svg"
+                alt="emoji"
+                width={50}
+                height={30}
+              />
+              <Image src="/docker.svg" alt="emoji" width={50} height={30} />
+              <Image src="/go.svg" alt="emoji" width={50} height={30} />
+              <Image src="/aws.svg" alt="emoji" width={50} height={30} />
+              <Image src="/java.svg" alt="emoji" width={50} height={30} />
+            </div>
+          </div>
         </motion.div>
       </section>
 
@@ -181,19 +210,9 @@ export default function Portfolio() {
           <div className="space-y-12">
             {[
               {
-                year: "2020 - Present",
-                title: "Senior Full Stack Developer",
-                company: "Tech Innovators Inc.",
-              },
-              {
-                year: "2018 - 2020",
+                year: "Dec 2023 - Jun 2024 (7 months)",
                 title: "Full Stack Developer",
-                company: "WebSolutions Co.",
-              },
-              {
-                year: "2016 - 2018",
-                title: "Junior Developer",
-                company: "StartUp Ventures",
+                company: "Cloudnix Software Labs Pvt Ltd (Remote)",
               },
             ].map((job, index) => (
               <motion.div
@@ -209,6 +228,21 @@ export default function Portfolio() {
                 <div className="w-full md:w-2/3">
                   <h3 className="text-xl font-semibold mb-2">{job.title}</h3>
                   <p className="text-gray-300">{job.company}</p>
+
+                  <div className="text-white text-lg font-medium mt-2">
+                    <ul>
+                      <li>
+                        Developed robust and scalable APIs to handle server-side
+                        functionality, ensuring seamless integration with
+                        front-end components.
+                      </li>
+                      <li>
+                        Focused on delivering efficient, maintainable code and
+                        collaborating on both server-side and client-side
+                        development for end-to-end solutions.
+                      </li>
+                    </ul>
+                  </div>
                 </div>
               </motion.div>
             ))}
