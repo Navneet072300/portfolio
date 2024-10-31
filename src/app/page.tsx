@@ -5,39 +5,54 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { FaGithub, FaLinkedin, FaEnvelope } from "react-icons/fa";
 import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import ProjectCard from "./pages/project";
 
-const projectList = [
-  {
-    name: "Project One",
-    link: "#",
-    image: "/project3.png",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-  },
-  {
-    name: "Project Two",
-    link: "#",
-    image: "/project3.png",
-    description:
-      "Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec velit neque.",
-  },
-  {
-    name: "Simple Bank Microservices Application",
-    link: "https://github.com/Navneet072300/simple_bank",
-    image: "/project3.png",
-    description:
-      "I developed a bank application with CRUD functionality using Go and PostgreSQL to efficiently manage transactions. To enhance scalability, I utilized Docker for containerization and Kubernetes for orchestration, integrating Redis as a caching layer to boost performance. Following microservice architecture best practices, I set up CI/CD pipelines using GitHub Actions for seamless deployment and continuous integration.",
-  },
-  {
-    name: "Project Four",
-    link: "#",
-    image: "/project3.png",
-    description:
-      "Quisque velit nisi, pretium ut lacinia in, elementum id enim. Nulla porttitor accumsan tincidunt.",
-  },
-];
+interface Project {
+  name: string;
+  description: string;
+  image: string;
+  techStack: string[];
+  githubLink: string;
+  projectLink: string;
+}
 
 export default function Portfolio() {
+  const projectList: Project[] = [
+    {
+      name: "Project Alpha",
+      description: "A revolutionary app that does amazing things.",
+      image: "/placeholder.svg?height=200&width=300",
+      techStack: ["React", "Node.js", "MongoDB"],
+      githubLink: "https://github.com/username/project-alpha",
+      projectLink: "https://project-alpha.com",
+    },
+    {
+      name: "Beta Dashboard",
+      description: "Powerful analytics dashboard for businesses.",
+      image: "/placeholder.svg?height=200&width=300",
+      techStack: ["Vue.js", "Express", "PostgreSQL"],
+      githubLink: "https://github.com/username/beta-dashboard",
+      projectLink: "https://beta-dashboard.com",
+    },
+    {
+      name: "Gamma API",
+      description: "Scalable and efficient API for data processing.",
+      image: "/placeholder.svg?height=200&width=300",
+      techStack: ["Python", "FastAPI", "Redis"],
+      githubLink: "https://github.com/username/gamma-api",
+      projectLink: "https://gamma-api.com",
+    },
+    {
+      name: "Delta Mobile App",
+      description: "Cross-platform mobile app for productivity.",
+      image: "/placeholder.svg?height=200&width=300",
+      techStack: ["React Native", "Firebase", "Redux"],
+      githubLink: "https://github.com/username/delta-mobile",
+      projectLink: "https://delta-mobile.com",
+    },
+  ];
+
   const [activeSection, setActiveSection] = useState("home");
 
   useEffect(() => {
@@ -198,7 +213,7 @@ export default function Portfolio() {
               With over a year of experience, I've worked as a freelancer,
               delivering tailored solutions across various small projects.
             </p>
-            <p className="text-lg text-gray-300">
+            <p className="text-lg text-gray-300 mb-10">
               My expertise spans modern technologies like JavaScript, React,
               Next.js, Node.js, and Go, as well as TypeScript, Tailwind CSS, and
               Python for building versatile, robust applications. With a strong
@@ -207,89 +222,93 @@ export default function Portfolio() {
               deployment. I’m constantly learning and embracing new technologies
               to stay at the forefront of web development.
             </p>
-            <p className="text-lg text-gray-300">
-              Here is my{" "}
-              <a
-                className=" text-base font-bold text-blue-600 underline"
-                href="https://drive.google.com/file/d/1hgx2HcOIPda9h_giBGmBL3Mphwwrur4R/view?usp=sharing"
-              >
-                {" "}
-                resume{" "}
-              </a>
-            </p>
-            <div className=" mt-4">
-              <p className="text-white font-semibold max-w-lg mx-auto my-2 text-xl text-center">
+            <div className="flex justify-center mb-10">
+              <Button className="text-l p-4 bg-blue-600">
+                <a
+                  className="text-base font-bold text-white"
+                  href="https://drive.google.com/file/d/1hgx2HcOIPda9h_giBGmBL3Mphwwrur4R/view?usp=sharing"
+                >
+                  View Resume
+                </a>
+              </Button>
+            </div>
+            <div className="mt-7">
+              <p className="text-white font-semibold max-w-lg mx-auto my-2 text-lg sm:text-xl text-center">
                 Here are some technologies I have been working with:
               </p>
-              <div className=" flex items-center justify-center p-2 my-3 gap-3 h-[3rem]">
-                <Image src="/react.svg" alt="emoji" width={50} height={30} />
-                <Image src="/node.svg" alt="emoji" width={50} height={30} />
+              <div className="flex flex-wrap items-center justify-center p-2 my-3 gap-3 h-[3rem]">
+                <Image
+                  src="/react.svg"
+                  alt="React"
+                  width={40}
+                  height={24}
+                  className="sm:w-12 sm:h-8"
+                />
+                <Image
+                  src="/node.svg"
+                  alt="Node.js"
+                  width={40}
+                  height={24}
+                  className="sm:w-12 sm:h-8"
+                />
                 <Image
                   src="/javascript.svg"
-                  alt="emoji"
-                  width={50}
-                  height={30}
+                  alt="JavaScript"
+                  width={40}
+                  height={24}
+                  className="sm:w-12 sm:h-8"
                 />
                 <Image
                   src="/typescript.svg"
-                  alt="emoji"
-                  width={50}
-                  height={30}
+                  alt="TypeScript"
+                  width={40}
+                  height={24}
+                  className="sm:w-12 sm:h-8"
                 />
                 <Image
                   src="/tailwindcss.svg"
-                  alt="emoji"
-                  width={50}
-                  height={30}
+                  alt="Tailwind CSS"
+                  width={40}
+                  height={24}
+                  className="sm:w-12 sm:h-8"
                 />
-                <Image src="/docker.svg" alt="emoji" width={50} height={30} />
-                <Image src="/go.svg" alt="emoji" width={50} height={30} />
-                <Image src="/aws.svg" alt="emoji" width={50} height={30} />
+                <Image
+                  src="/docker.svg"
+                  alt="Docker"
+                  width={40}
+                  height={24}
+                  className="sm:w-12 sm:h-8"
+                />
+                <Image
+                  src="/go.svg"
+                  alt="Go"
+                  width={40}
+                  height={24}
+                  className="sm:w-12 sm:h-8"
+                />
+                <Image
+                  src="/aws.svg"
+                  alt="AWS"
+                  width={40}
+                  height={24}
+                  className="sm:w-12 sm:h-8"
+                />
               </div>
             </div>
           </motion.div>
         </section>
 
-        <section id="projects" className="min-h-screen py-20">
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.8 }}
-            className="max-w-5xl mx-auto px-4"
-          >
-            <h2 className="text-3xl font-bold mb-12 text-center">Projects</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <section id="projects" className="py-20 bg-gray-900">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl font-bold mb-12 text-center text-gray-100">
+              Projects
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
               {projectList.map((project, index) => (
-                <motion.div
-                  key={index}
-                  whileHover={{ scale: 1.05 }}
-                  className="bg-gray-800 rounded-lg overflow-hidden shadow-lg"
-                >
-                  <div className="h-48 bg-gray-700">
-                    <Image
-                      src={project.image}
-                      alt={project.name}
-                      width={120}
-                      height={120}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <div className="p-6">
-                    <h3 className="text-xl font-semibold mb-2">
-                      {project.name}
-                    </h3>
-                    <p className="text-gray-400 mb-4">{project.description}</p>
-                    <a
-                      href={project.link}
-                      className="text-purple-400 hover:text-purple-300 font-medium"
-                    >
-                      Learn More →
-                    </a>
-                  </div>
-                </motion.div>
+                <ProjectCard key={index} project={project} />
               ))}
             </div>
-          </motion.div>
+          </div>
         </section>
 
         <section id="experience" className="min-h-screen py-20">
