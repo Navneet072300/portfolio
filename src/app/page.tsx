@@ -20,28 +20,31 @@ interface Project {
 export default function Portfolio() {
   const projectList: Project[] = [
     {
-      name: "Project Alpha",
-      description: "A revolutionary app that does amazing things.",
-      image: "/placeholder.svg?height=200&width=300",
-      techStack: ["React", "Node.js", "MongoDB"],
-      githubLink: "https://github.com/username/project-alpha",
-      projectLink: "https://project-alpha.com",
+      name: "Code Craft",
+      description:
+        "A code editor where you can run your code in different languages and save them.",
+      image: "/code.png?height=200&width=300",
+      techStack: ["NextJS", "TypeScript", "Convex", "TailwindCSS", "API"],
+      githubLink: "https://github.com/Navneet072300/code-craft",
+      projectLink: "https://code-craft-navy.vercel.app/",
     },
     {
-      name: "Beta Dashboard",
-      description: "Powerful analytics dashboard for businesses.",
-      image: "/placeholder.svg?height=200&width=300",
-      techStack: ["Vue.js", "Express", "PostgreSQL"],
-      githubLink: "https://github.com/username/beta-dashboard",
-      projectLink: "https://beta-dashboard.com",
+      name: "StoreIt",
+      description:
+        "A cloud storage where you can store all type of files, images and videos.",
+      image: "/store.png?height=200&width=300",
+      techStack: ["NextJS", "TypeScript", "AppWrite", "TailwindCSS"],
+      githubLink: "https://github.com/Navneet072300/storeIt",
+      projectLink: "https://store-it-omega.vercel.app",
     },
     {
-      name: "Gamma API",
-      description: "Scalable and efficient API for data processing.",
+      name: "StoreIt",
+      description:
+        "A cloud storage where you can store all type of files, images and videos.",
       image: "/placeholder.svg?height=200&width=300",
       techStack: ["Python", "FastAPI", "Redis"],
       githubLink: "https://github.com/username/gamma-api",
-      projectLink: "https://gamma-api.com",
+      projectLink: "https://store-it-omega.vercel.app",
     },
     {
       name: "Delta Mobile App",
@@ -226,7 +229,7 @@ export default function Portfolio() {
               <Button className="text-l p-4 bg-blue-600">
                 <a
                   className="text-base font-bold text-white"
-                  href="https://drive.google.com/file/d/1hgx2HcOIPda9h_giBGmBL3Mphwwrur4R/view?usp=sharing"
+                  href="https://drive.google.com/file/d/1EwXZsLAnlx9MkT9XwOfhzKbwO9QXUMcb/view?usp=drive_link"
                 >
                   View Resume
                 </a>
