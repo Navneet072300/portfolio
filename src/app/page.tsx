@@ -37,23 +37,23 @@ export default function Portfolio() {
       githubLink: "https://github.com/Navneet072300/storeIt",
       projectLink: "https://store-it-omega.vercel.app",
     },
-    {
-      name: "StoreIt",
-      description:
-        "A cloud storage where you can store all type of files, images and videos.",
-      image: "/placeholder.svg?height=200&width=300",
-      techStack: ["Python", "FastAPI", "Redis"],
-      githubLink: "https://github.com/username/gamma-api",
-      projectLink: "https://store-it-omega.vercel.app",
-    },
-    {
-      name: "Delta Mobile App",
-      description: "Cross-platform mobile app for productivity.",
-      image: "/placeholder.svg?height=200&width=300",
-      techStack: ["React Native", "Firebase", "Redux"],
-      githubLink: "https://github.com/username/delta-mobile",
-      projectLink: "https://delta-mobile.com",
-    },
+    // {
+    //   name: "StoreIt",
+    //   description:
+    //     "A cloud storage where you can store all type of files, images and videos.",
+    //   image: "/placeholder.svg?height=200&width=300",
+    //   techStack: ["Python", "FastAPI", "Redis"],
+    //   githubLink: "https://github.com/username/gamma-api",
+    //   projectLink: "https://store-it-omega.vercel.app",
+    // },
+    // {
+    //   name: "Delta Mobile App",
+    //   description: "Cross-platform mobile app for productivity.",
+    //   image: "/placeholder.svg?height=200&width=300",
+    //   techStack: ["React Native", "Firebase", "Redux"],
+    //   githubLink: "https://github.com/username/delta-mobile",
+    //   projectLink: "https://delta-mobile.com",
+    // },
   ];
 
   const [activeSection, setActiveSection] = useState("home");
