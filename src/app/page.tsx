@@ -38,7 +38,7 @@ export default function Portfolio() {
       projectLink: "https://store-it-omega.vercel.app",
     },
     {
-      name: "StoreIt",
+      name: "Story Book",
       description: "Full Stack Nextjs AI Kids Story generator.",
       image: "/story.png?height=200&width=300",
       techStack: [
