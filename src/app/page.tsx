@@ -37,15 +37,21 @@ export default function Portfolio() {
       githubLink: "https://github.com/Navneet072300/storeIt",
       projectLink: "https://store-it-omega.vercel.app",
     },
-    // {
-    //   name: "StoreIt",
-    //   description:
-    //     "A cloud storage where you can store all type of files, images and videos.",
-    //   image: "/placeholder.svg?height=200&width=300",
-    //   techStack: ["Python", "FastAPI", "Redis"],
-    //   githubLink: "https://github.com/username/gamma-api",
-    //   projectLink: "https://store-it-omega.vercel.app",
-    // },
+    {
+      name: "StoreIt",
+      description: "Full Stack Nextjs AI Kids Story generator.",
+      image: "/story.png?height=200&width=300",
+      techStack: [
+        "NextJS",
+        "Typescript",
+        "Drizzle ORM",
+        "firebase",
+        "Tailwind CSS",
+        "Next UI",
+      ],
+      githubLink: "https://github.com/Navneet072300/story-book",
+      projectLink: "https://www.kidsstorybook.fun/",
+    },
     // {
     //   name: "Delta Mobile App",
     //   description: "Cross-platform mobile app for productivity.",
