@@ -320,7 +320,7 @@ export default function Portfolio() {
           </div>
         </section>
 
-        <section id="experience" className="min-h-screen py-20">
+        {/* <section id="experience" className="min-h-screen py-20">
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
@@ -369,7 +369,7 @@ export default function Portfolio() {
               ))}
             </div>
           </motion.div>
-        </section>
+        </section>*/}
 
         <footer className="bg-gray-800 py-8">
           <div className="max-w-5xl mx-auto px-4 text-center">
