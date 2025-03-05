@@ -235,7 +235,7 @@ export default function Portfolio() {
               <Button className="text-l p-4 bg-blue-600">
                 <a
                   className="text-base font-bold text-white"
-                  href="https://drive.google.com/file/d/1LMBUvF9xVDd7yHk0c057WYBzlOAN9d-H/view?usp=sharing"
+                  href="https://drive.google.com/file/d/1LMBUvF9xVDd7yHk0c057WYBzlOAN9d-H/view?usp=drive_link"
                 >
                   View Resume
                 </a>
