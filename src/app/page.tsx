@@ -21,6 +21,15 @@ interface Project {
 export default function Portfolio() {
   const projectList: Project[] = [
     {
+      name: "Terraform Projects",
+      description:
+        "Collection of Infrastructure as Code (IaC) projects using Terraform.",
+      image: "/placeholder.svg?height=200&width=300",
+      techStack: ["Terraform", "AWS", "Docker", "Kubernetes"],
+      githubLink: "https://github.com/Navneet072300/terraform-projects",
+      projectLink: "", // Add if there's a live deployment
+    },
+    {
       name: "Code Craft",
       description:
         "A code editor where you can run your code in different languages and save them.",
@@ -53,14 +62,6 @@ export default function Portfolio() {
       githubLink: "https://github.com/Navneet072300/story-book",
       projectLink: "https://www.kidsstorybook.fun/",
     },
-    // {
-    //   name: "Delta Mobile App",
-    //   description: "Cross-platform mobile app for productivity.",
-    //   image: "/placeholder.svg?height=200&width=300",
-    //   techStack: ["React Native", "Firebase", "Redux"],
-    //   githubLink: "https://github.com/username/delta-mobile",
-    //   projectLink: "https://delta-mobile.com",
-    // },
   ];
 
   const [activeSection, setActiveSection] = useState("home");
