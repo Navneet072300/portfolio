@@ -24,10 +24,10 @@ export default function Portfolio() {
       name: "Terraform Projects",
       description:
         "Collection of Infrastructure as Code (IaC) projects using Terraform.",
-      image: "/placeholder.svg?height=200&width=300",
+      image: "/iac.webp?height=200&width=300",
       techStack: ["Terraform", "AWS", "Docker", "Kubernetes"],
       githubLink: "https://github.com/Navneet072300/terraform-projects",
-      projectLink: "", // Add if there's a live deployment
+      projectLink: "#", // Add if there's a live deployment
     },
     {
       name: "Code Craft",
