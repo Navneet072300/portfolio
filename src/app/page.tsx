@@ -7,6 +7,7 @@ import { FaGithub, FaLinkedin, FaEnvelope } from "react-icons/fa";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import ProjectCard from "./pages/project";
+import { SiMedium } from "react-icons/si";
 
 interface Project {
   name: string;
@@ -200,6 +201,12 @@ export default function Portfolio() {
                 className="text-2xl hover:text-purple-400 transition-colors"
               >
                 <FaEnvelope />
+              </a>
+              <a
+                href="https://medium.com/@navneetshahi345"
+                className="text-2xl hover:text-purple-400 transition-colors"
+              >
+                <SiMedium />
               </a>
             </div>
           </motion.div>
