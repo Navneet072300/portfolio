@@ -30,6 +30,22 @@ export default function Portfolio() {
       projectLink: "#", // Add if there's a live deployment
     },
     {
+      name: "ScraperFlow",
+      description:
+        "The Scraper platform enables users to extract data from websites using a modular workflow editor without the need for extensive coding knowledge.",
+      image: "/scrapper.jpeg?height=200&width=300",
+      techStack: [
+        "NextJS",
+        "Tailwind",
+        "Typescript",
+        "PSQL",
+        "Prisma",
+        "Scrapping",
+      ],
+      githubLink: "https://github.com/Navneet072300/scrapflow",
+      projectLink: "https://data-scraper-lime.vercel.app/",
+    },
+    {
       name: "Code Craft",
       description:
         "A code editor where you can run your code in different languages and save them.",
@@ -47,21 +63,21 @@ export default function Portfolio() {
       githubLink: "https://github.com/Navneet072300/storeIt",
       projectLink: "https://store-it-omega.vercel.app",
     },
-    {
-      name: "Story Book",
-      description: "Full Stack Nextjs AI Kids Story generator.",
-      image: "/story.png?height=200&width=300",
-      techStack: [
-        "NextJS",
-        "Typescript",
-        "Drizzle ORM",
-        "firebase",
-        "Tailwind CSS",
-        "Next UI",
-      ],
-      githubLink: "https://github.com/Navneet072300/story-book",
-      projectLink: "https://www.kidsstorybook.fun/",
-    },
+    // {
+    //   name: "Story Book",
+    //   description: "Full Stack Nextjs AI Kids Story generator.",
+    //   image: "/story.png?height=200&width=300",
+    //   techStack: [
+    //     "NextJS",
+    //     "Typescript",
+    //     "Drizzle ORM",
+    //     "firebase",
+    //     "Tailwind CSS",
+    //     "Next UI",
+    //   ],
+    //   githubLink: "https://github.com/Navneet072300/story-book",
+    //   projectLink: "https://www.kidsstorybook.fun/",
+    // },
   ];
 
   const [activeSection, setActiveSection] = useState("home");
