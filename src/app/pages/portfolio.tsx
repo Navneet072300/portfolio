@@ -500,6 +500,8 @@ export default function Portfolio() {
                         { src: "/typescript.svg", alt: "TypeScript" },
                         { src: "/tailwindcss.svg", alt: "Tailwind CSS" },
                         { src: "/docker.svg", alt: "Docker" },
+                        { src: "/k8s.png", alt: "Kubernetes" },
+                        { src: "/terraform.png", alt: "Terraform" },
                         { src: "/go.svg", alt: "Go" },
                         { src: "/aws.svg", alt: "AWS" },
                       ].map((tech, index) => (
