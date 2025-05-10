@@ -142,7 +142,7 @@ export default function Portfolio() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.2 }}
-              className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500"
+              className="text-sm md:text-xl lg:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500"
             >
               Navneet Shahi
             </motion.div>
@@ -157,7 +157,7 @@ export default function Portfolio() {
                   >
                     <button
                       onClick={() => scrollTo(section)}
-                      className={`text-base font-medium capitalize transition-all duration-300 ${
+                      className={`text-sm md:text-base font-medium capitalize transition-all duration-300 ${
                         activeSection === section
                           ? "text-purple-400 scale-110"
                           : "text-gray-300 hover:text-purple-300"
