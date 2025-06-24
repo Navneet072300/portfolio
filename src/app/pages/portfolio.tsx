@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { FaGithub, FaLinkedin, FaEnvelope } from "react-icons/fa";
 import { SiMedium } from "react-icons/si";
+import { Calendar, MapPin, ExternalLink } from "lucide-react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import ProjectCard from "@/app/pages/project";
@@ -15,6 +16,16 @@ interface Project {
   techStack: string[];
   githubLink: string;
   projectLink: string;
+}
+
+interface Experience {
+  title: string;
+  company: string;
+  location: string;
+  duration: string;
+  description: string[];
+  technologies: string[];
+  link?: string;
 }
 
 export default function Portfolio() {
@@ -62,6 +73,70 @@ export default function Portfolio() {
       githubLink: "https://github.com/Navneet072300/storeIt",
       projectLink: "https://store-it-omega.vercel.app",
     },
+  ];
+
+  const experienceList: Experience[] = [
+    {
+      title: "Full Stack Developer",
+      company: "Keen and Able Pvt. Ltd.",
+      location: "On-site",
+      duration: "June, 2025 - Present",
+      description: [
+        "Developed and delivered custom web applications for various clients using modern technologies",
+        "Handled DevOps tasks like CI/CD setup, deployment, and server management to ensure smooth delivery.",
+        "Built responsive, user-friendly interfaces with React, Next.js, and Tailwind CSS",
+        "Implemented backend solutions using Node.js, Express, and various databases",
+        "Developed responsive and user-friendly frontend interfaces integrated with backend APIs.",
+        "Managed project timelines and deliverables independently",
+      ],
+      technologies: [
+        "React",
+        "Next.js",
+        "Node.js",
+        "TypeScript",
+        "Tailwind CSS",
+        "Docker",
+        "Kubernetes",
+        "Jenkins",
+        "Linux",
+      ],
+    },
+    // {
+    //   title: "DevOps Engineering Student",
+    //   company: "Chandigarh University",
+    //   location: "Punjab, India",
+    //   duration: "2021 - 2025",
+    //   description: [
+    //     "Pursuing Bachelor's degree in Computer Science Engineering with focus on DevOps",
+    //     "Gained hands-on experience with containerization technologies like Docker and Kubernetes",
+    //     "Learned Infrastructure as Code (IaC) using Terraform and AWS services",
+    //     "Developed understanding of CI/CD pipelines using Jenkins and GitHub Actions",
+    //     "Participated in various technical projects and hackathons",
+    //   ],
+    //   technologies: [
+    //     "Docker",
+    //     "Kubernetes",
+    //     "Terraform",
+    //     "AWS",
+    //     "Jenkins",
+    //     "Git",
+    //     "Linux",
+    //   ],
+    // },
+    // {
+    //   title: "Open Source Contributor",
+    //   company: "Various Projects",
+    //   location: "Remote",
+    //   duration: "2022 - Present",
+    //   description: [
+    //     "Contributed to open source projects on GitHub",
+    //     "Collaborated with developers worldwide on various technical solutions",
+    //     "Improved code quality and documentation for community projects",
+    //     "Gained experience in collaborative development workflows",
+    //   ],
+    //   technologies: ["Git", "GitHub", "JavaScript", "Python", "Go"],
+    //   link: "https://github.com/Navneet072300",
+    // },
   ];
 
   const [activeSection, setActiveSection] = useState("home");
@@ -310,12 +385,17 @@ export default function Portfolio() {
               transition={{ delay: 0.8 }}
               className="text-gray-400 max-w-lg mx-auto lg:mx-0 my-4 text-sm sm:text-base lg:text-lg"
             >
-              I am an enthusiastic Computer Science Engineering student studying
-              my Bachelor&apos;s degree at Chandigarh University (2021 July -
-              2025 June) with a focus in DevOps. Highly motivated beginner
-              Engineering student with a strong desire to gain practical
-              experience in the field of software development, operations, and
-              analysis.
+              I am a passionate and driven Computer Science Engineering graduate
+              from Chandigarh University (July 2021 — June 2025), with a
+              specialization in DevOps. Currently, I am working as a DevOps
+              Engineer at Keen and Able Pvt. Ltd., where I am gaining hands-on
+              experience in software development, system operations, and
+              infrastructure management. I am highly motivated to apply my
+              academic background in real-world scenarios and actively
+              contribute to impactful and innovative projects. My strong desire
+              to continuously learn and grow drives me to take on new challenges
+              and make meaningful contributions in the field of DevOps and
+              software engineering.
             </motion.p>
 
             <motion.div
@@ -416,10 +496,10 @@ export default function Portfolio() {
               viewport={{ once: true }}
               className="text-lg text-gray-300 mb-6"
             >
-              I&apos;m a passionate full-stack developer dedicated to crafting
-              beautiful, functional, and user-centric websites and applications.
-              With over a year of experience, I&apos;ve worked as a freelancer,
-              delivering tailored solutions across various small projects.
+              I’m a DevOps Engineer at Keen and Able Pvt. Ltd. with a strong
+              interest in full-stack development. Alongside managing
+              infrastructure and deployment pipelines, I actively contribute to
+              building clean, functional, and user-focused web applications.
             </motion.p>
 
             <motion.p
@@ -429,13 +509,14 @@ export default function Portfolio() {
               viewport={{ once: true }}
               className="text-lg text-gray-300 mb-10"
             >
-              My expertise spans modern technologies like JavaScript, React,
-              Next.js, Node.js, and Go, as well as TypeScript, Tailwind CSS, and
-              Python for building versatile, robust applications. With a strong
-              foundation in DevOps tools—Docker, Kubernetes, Jenkins, and AWS—I
-              ensure projects are scalable and efficient from development to
-              deployment. I&apos;m constantly learning and embracing new
-              technologies to stay at the forefront of web development.
+              With over a year of experience, including freelance work on
+              various small projects, I’ve worked with modern technologies like
+              JavaScript, TypeScript, React, Next.js, Node.js, Go, Python, and
+              Tailwind CSS. My DevOps expertise includes Docker, Kubernetes,
+              Jenkins, and AWS, enabling me to deliver scalable and efficient
+              solutions from development to production. I&apos;m continuously
+              learning and exploring new technologies to stay ahead in both
+              DevOps and development.
             </motion.p>
 
             <motion.div
@@ -452,7 +533,7 @@ export default function Portfolio() {
                 <Button className="text-l p-4 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 border-0">
                   <a
                     className="text-base font-bold text-white"
-                    href="https://drive.google.com/file/d/1LMBUvF9xVDd7yHk0c057WYBzlOAN9d-H/view?usp=drive_link"
+                    href="https://drive.google.com/drive/folders/1KIKSt6nLqj5HHQzE_whxWsLfLbJkEe9N"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -633,6 +714,141 @@ export default function Portfolio() {
               </motion.div>
             ))}
           </motion.div>
+        </div>
+      </section>
+
+      {/* Experience Section */}
+      <section id="experience" className="py-20 bg-[#0f172a] relative">
+        <div className="absolute inset-0 z-0 overflow-hidden">
+          <motion.div
+            className="absolute top-20 left-20 w-64 h-64 rounded-full bg-green-500/5 blur-3xl"
+            animate={{
+              x: [0, -40, 0],
+              y: [0, 40, 0],
+            }}
+            transition={{
+              duration: 14,
+              repeat: Number.POSITIVE_INFINITY,
+              repeatType: "reverse",
+            }}
+          />
+          <motion.div
+            className="absolute bottom-40 right-20 w-80 h-80 rounded-full bg-pink-500/5 blur-3xl"
+            animate={{
+              x: [0, 40, 0],
+              y: [0, -30, 0],
+            }}
+            transition={{
+              duration: 16,
+              repeat: Number.POSITIVE_INFINITY,
+              repeatType: "reverse",
+            }}
+          />
+        </div>
+
+        <div className="container mx-auto px-4 relative z-10">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            viewport={{ once: true }}
+            className="text-3xl font-bold mb-12 text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500"
+          >
+            Experience
+          </motion.h2>
+
+          <div className="max-w-4xl mx-auto">
+            {experienceList.map((experience, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.2 }}
+                viewport={{ once: true, amount: 0.3 }}
+                className="relative mb-12 last:mb-0"
+              >
+                {/* Timeline line */}
+                {index !== experienceList.length - 1 && (
+                  <div className="absolute left-6 top-16 w-0.5 h-full bg-gradient-to-b from-purple-500 to-blue-500 opacity-30" />
+                )}
+
+                {/* Timeline dot */}
+                <div className="absolute left-4 top-8 w-4 h-4 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full border-4 border-[#0f172a] z-10" />
+
+                {/* Content card */}
+                <motion.div
+                  whileHover={{ scale: 1.02, y: -5 }}
+                  transition={{ duration: 0.3 }}
+                  className="ml-12 bg-[#1e293b]/50 backdrop-blur-sm rounded-2xl p-6 border border-gray-800 shadow-xl hover:border-purple-500/30"
+                >
+                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-4">
+                    <div className="flex-1">
+                      <h3 className="text-xl font-bold text-white mb-1">
+                        {experience.title}
+                      </h3>
+                      <div className="flex items-center gap-2 text-purple-400 font-medium mb-2">
+                        <span>{experience.company}</span>
+                        {experience.link && (
+                          <motion.a
+                            href={experience.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            whileHover={{ scale: 1.1 }}
+                            whileTap={{ scale: 0.9 }}
+                            className="text-purple-400 hover:text-purple-300"
+                          >
+                            <ExternalLink size={16} />
+                          </motion.a>
+                        )}
+                      </div>
+                    </div>
+                    <div className="flex flex-col sm:items-end text-sm text-gray-400">
+                      <div className="flex items-center gap-1 mb-1">
+                        <Calendar size={14} />
+                        <span>{experience.duration}</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <MapPin size={14} />
+                        <span>{experience.location}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <ul className="text-gray-300 mb-4 space-y-2">
+                    {experience.description.map((item, itemIndex) => (
+                      <motion.li
+                        key={itemIndex}
+                        initial={{ opacity: 0, x: -20 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.1 * itemIndex }}
+                        viewport={{ once: true }}
+                        className="flex items-start gap-2"
+                      >
+                        <div className="w-1.5 h-1.5 bg-purple-400 rounded-full mt-2 flex-shrink-0" />
+                        <span className="text-sm leading-relaxed">{item}</span>
+                      </motion.li>
+                    ))}
+                  </ul>
+
+                  <div className="flex flex-wrap gap-2">
+                    {experience.technologies.map((tech, techIndex) => (
+                      <motion.span
+                        key={techIndex}
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: 0.05 * techIndex }}
+                        viewport={{ once: true }}
+                        whileHover={{ scale: 1.05 }}
+                        className="px-3 py-1 text-xs font-medium bg-gradient-to-r from-purple-500/20 to-blue-500/20 text-purple-300 rounded-full border border-purple-500/30"
+                      >
+                        {tech}
+                      </motion.span>
+                    ))}
+                  </div>
+                </motion.div>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
 
