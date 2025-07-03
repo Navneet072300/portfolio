@@ -37,7 +37,7 @@ export default function Portfolio() {
       image: "/iac.webp?height=200&width=300",
       techStack: ["Terraform", "AWS", "Docker", "Kubernetes"],
       githubLink: "https://github.com/Navneet072300/terraform-projects",
-      projectLink: "#", // Add if there's a live deployment
+      projectLink: "#",
     },
     {
       name: "ScraperFlow",
@@ -385,17 +385,17 @@ export default function Portfolio() {
               transition={{ delay: 0.8 }}
               className="text-gray-400 max-w-lg mx-auto lg:mx-0 my-4 text-sm sm:text-base lg:text-lg"
             >
-              I am a passionate and driven Computer Science Engineering graduate
-              from Chandigarh University (July 2021 — June 2025), with a
-              specialization in DevOps. Currently, I am working as a DevOps
-              Engineer at Keen and Able Pvt. Ltd., where I am gaining hands-on
-              experience in software development, system operations, and
-              infrastructure management. I am highly motivated to apply my
-              academic background in real-world scenarios and actively
-              contribute to impactful and innovative projects. My strong desire
-              to continuously learn and grow drives me to take on new challenges
-              and make meaningful contributions in the field of DevOps and
-              software engineering.
+              DevOps Engineer with end-to-end experience in cloud
+              infrastructure, automation, and full-stack microservices.
+              Proficient in Docker, Kubernetes, AWS, Terraform, GitHub Actions,
+              Prometheus, and Grafana. I’ve led the deployment and scaling of
+              cloud-native applications, implemented secure VPC architectures,
+              and built efficient CI/CD pipelines. In addition to DevOps, I
+              bring hands-on full-stack development experience (React, Node.js,
+              Next.js), allowing me to bridge the gap between infrastructure and
+              app development. Passionate about automation, scalability, and
+              contributing to fast-moving product teams in remote startup
+              environments.
             </motion.p>
 
             <motion.div
@@ -533,7 +533,7 @@ export default function Portfolio() {
                 <Button className="text-l p-4 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 border-0">
                   <a
                     className="text-base font-bold text-white"
-                    href="https://drive.google.com/drive/folders/1KIKSt6nLqj5HHQzE_whxWsLfLbJkEe9N"
+                    href="/resume.pdf"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
