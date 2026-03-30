@@ -1,16 +1,15 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
-import { Mail, ExternalLink, Code2, ArrowUpRight } from 'lucide-react';
+import Image from 'next/image';
+import { Mail, ExternalLink, Code2, ArrowUpRight, GitFork, Star } from 'lucide-react';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
 interface Branch {
-  x1: number;
-  y1: number;
-  x2: number;
-  y2: number;
+  x1: number; y1: number;
+  x2: number; y2: number;
   depth: number;
   progress: number;
   started: boolean;
@@ -23,52 +22,80 @@ interface Project {
   tech: string[];
   github: string;
   live?: string;
+  image?: string;
+}
+
+interface OSSContrib {
+  project: string;
+  org: string;
+  description: string;
+  url: string;
+  language: string;
+  stars?: string;
 }
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 
 const PROJECTS: Project[] = [
   {
-    title: 'PrepBot',
+    title: 'Arc',
     description:
-      'AI-powered mock interview platform with real-time feedback, personalized question generation, and session analytics.',
-    tech: ['Next.js', 'TypeScript', 'AI'],
-    github: 'https://github.com/Navneet072300/PrepBot',
+      'Self-hosted serverless PostgreSQL-as-a-Service on AWS EKS. Inspired by Neon/Supabase — connection pooling, scale-to-zero, read replicas, PITR, and a full dashboard.',
+    tech: ['Python', 'AWS EKS', 'PostgreSQL', 'Kubernetes'],
+    github: 'https://github.com/Navneet072300/arc',
   },
   {
-    title: 'Story Book',
+    title: 'StoreIt',
     description:
-      'Full-stack AI kids story generator — enter a prompt, get an illustrated, age-appropriate story in seconds.',
-    tech: ['Next.js', 'TypeScript', 'OpenAI'],
-    github: 'https://github.com/Navneet072300/story-book',
+      'Cloud file storage and management app — upload, organize, and share files with a clean Next.js interface.',
+    tech: ['Next.js', 'TypeScript', 'Appwrite'],
+    github: 'https://github.com/Navneet072300/storeIt',
+    live: 'https://store-it-omega.vercel.app',
+    image: '/store.png',
   },
   {
-    title: 'BudgetBuddy',
+    title: 'Disaster Recovery',
     description:
-      'eCommerce price tracker with web scraping, cron jobs, and email alerts when prices drop.',
-    tech: ['Next.js 15', 'TypeScript', 'Cron', 'Scraping'],
-    github: 'https://github.com/Navneet072300/budgetbuddy',
+      'Terraform multi-region AWS infrastructure with Route 53 DNS failover, RDS cross-region read replica, and S3 cross-region replication.',
+    tech: ['Terraform', 'AWS', 'HCL', 'Route 53'],
+    github: 'https://github.com/Navneet072300/disaster-recovery',
+    image: '/terraform.png',
   },
   {
     title: 'Code-Craft',
     description:
-      'VS Code-like code editor in the browser with syntax highlighting, multiple themes, and file management.',
+      'VS Code-like code editor in the browser with syntax highlighting, multiple themes, and multi-language support.',
     tech: ['Next.js', 'TypeScript', 'Tailwind'],
     github: 'https://github.com/Navneet072300/code-craft',
+    live: 'https://code-craft-navy.vercel.app',
+    image: '/code.png',
   },
   {
-    title: 'Go-Todo',
+    title: 'Scrapeflow',
     description:
-      'Full-stack todo application with a Golang REST API backend and a clean React frontend.',
-    tech: ['React', 'Golang', 'REST API'],
-    github: 'https://github.com/Navneet072300/go-todo',
+      'Visual workflow automation platform for web scraping — drag and drop nodes to build scraping pipelines without code.',
+    tech: ['Next.js', 'TypeScript', 'Prisma'],
+    github: 'https://github.com/Navneet072300/scrapeflow',
+    image: '/scrapper.jpeg',
   },
   {
-    title: 'Genova',
+    title: 'PrepBot',
     description:
-      'Multi-modal AI platform to generate code, images, videos, and text from a single unified interface.',
-    tech: ['Next.js', 'TypeScript', 'AI APIs'],
-    github: 'https://github.com/Navneet072300/genova',
+      'AI-powered mock interview platform with real-time feedback and personalized question generation.',
+    tech: ['Next.js', 'TypeScript', 'AI'],
+    github: 'https://github.com/Navneet072300/PrepBot',
+  },
+];
+
+const OSS: OSSContrib[] = [
+  {
+    project: 'Argo CD',
+    org: 'argoproj',
+    description:
+      'Declarative GitOps continuous delivery tool for Kubernetes. One of the most widely used CNCF projects — contributed to the codebase and infrastructure configuration.',
+    url: 'https://github.com/Navneet072300/argo-cd',
+    language: 'Go',
+    stars: '18k+',
   },
 ];
 
@@ -78,29 +105,33 @@ const SKILLS = [
   'Terraform', 'PostgreSQL', 'AWS', 'CI/CD',
 ];
 
+const EXPERIENCE = [
+  {
+    role: 'Full Stack Developer',
+    company: 'Keen and Able Pvt. Ltd.',
+    period: 'June 2025 — Present',
+    location: 'India',
+    points: [
+      'Building and maintaining full-stack web applications with Next.js and Node.js',
+      'Designing RESTful APIs and integrating third-party services',
+      'Working on CI/CD pipelines and deployment automation',
+      'Collaborating with cross-functional teams on product features',
+    ],
+    tech: ['Next.js', 'Node.js', 'TypeScript', 'PostgreSQL', 'Docker'],
+  },
+];
+
 // ─── Binary Tree Canvas ───────────────────────────────────────────────────────
 
 function buildTree(
-  x: number,
-  y: number,
-  angleDeg: number,
-  len: number,
-  depth: number,
-  maxDepth: number
+  x: number, y: number,
+  angleDeg: number, len: number,
+  depth: number, maxDepth: number
 ): Branch {
   const rad = (angleDeg * Math.PI) / 180;
   const x2 = x + Math.sin(rad) * len;
   const y2 = y - Math.cos(rad) * len;
-
-  const branch: Branch = {
-    x1: x, y1: y,
-    x2, y2,
-    depth,
-    progress: 0,
-    started: false,
-    children: [],
-  };
-
+  const branch: Branch = { x1: x, y1: y, x2, y2, depth, progress: 0, started: false, children: [] };
   if (depth < maxDepth) {
     const childLen = len * 0.7;
     const spread = 20 + depth * 1.5;
@@ -109,7 +140,6 @@ function buildTree(
       buildTree(x2, y2, angleDeg + spread, childLen, depth + 1, maxDepth),
     ];
   }
-
   return branch;
 }
 
@@ -129,7 +159,7 @@ const BinaryTree: React.FC = () => {
       canvas.height = canvas.offsetHeight;
       const w = canvas.width;
       const h = canvas.height;
-      const trunkLen = Math.min(h * 0.2, 140);
+      const trunkLen = Math.min(h * 0.22, 160);
       const maxDepth = w < 768 ? 8 : 10;
       const tree = buildTree(w / 2, h, 0, trunkLen, 0, maxDepth);
       tree.started = true;
@@ -137,18 +167,13 @@ const BinaryTree: React.FC = () => {
     };
 
     init();
-
     let allDone = false;
 
     const updateBranch = (b: Branch): boolean => {
       if (!b.started) return true;
-      const rate = 0.022 * (0.8 + b.depth * 0.09);
-      if (b.progress < 1) {
-        b.progress = Math.min(1, b.progress + rate);
-      }
-      if (b.progress >= 0.7) {
-        b.children.forEach(c => { c.started = true; });
-      }
+      const rate = 0.02 * (0.8 + b.depth * 0.08);
+      if (b.progress < 1) b.progress = Math.min(1, b.progress + rate);
+      if (b.progress >= 0.65) b.children.forEach(c => { c.started = true; });
       let done = b.progress >= 1;
       b.children.forEach(c => { if (!updateBranch(c)) done = false; });
       return done;
@@ -160,9 +185,17 @@ const BinaryTree: React.FC = () => {
       const ex = b.x1 + (b.x2 - b.x1) * p;
       const ey = b.y1 + (b.y2 - b.y1) * p;
 
-      const maxD = 10;
-      const alpha = 0.5 - (b.depth / maxD) * 0.35;
-      const width = Math.max(0.4, 2.4 - b.depth * 0.2);
+      // More visible: brighter alpha, thicker lines
+      const alpha = Math.max(0.12, 0.85 - (b.depth / 10) * 0.6);
+      const width = Math.max(0.5, 4 - b.depth * 0.32);
+
+      // Glow on trunk and first few branches
+      if (b.depth < 4) {
+        ctx.shadowBlur = 8 - b.depth * 1.5;
+        ctx.shadowColor = 'rgba(74, 222, 128, 0.35)';
+      } else {
+        ctx.shadowBlur = 0;
+      }
 
       ctx.beginPath();
       ctx.moveTo(b.x1, b.y1);
@@ -180,6 +213,7 @@ const BinaryTree: React.FC = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       if (!allDone) allDone = updateBranch(treeRef.current);
       drawBranch(treeRef.current);
+      ctx.shadowBlur = 0;
       if (!allDone) rafRef.current = requestAnimationFrame(render);
     };
 
@@ -199,17 +233,12 @@ const BinaryTree: React.FC = () => {
     };
   }, []);
 
-  return (
-    <canvas
-      ref={canvasRef}
-      style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}
-    />
-  );
+  return <canvas ref={canvasRef} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }} />;
 };
 
 // ─── Nav ─────────────────────────────────────────────────────────────────────
 
-const NAV_LINKS = ['about', 'projects', 'contact'] as const;
+const NAV_LINKS = ['about', 'experience', 'projects', 'opensource', 'contact'] as const;
 
 const Nav: React.FC = () => {
   const [active, setActive] = useState('');
@@ -228,41 +257,34 @@ const Nav: React.FC = () => {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const scrollTo = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
-  };
+  const scrollTo = (id: string) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
 
   return (
-    <nav
-      style={{
-        position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50,
-        transition: 'all 0.3s ease',
-        backgroundColor: scrolled ? 'rgba(10,10,10,0.88)' : 'transparent',
-        backdropFilter: scrolled ? 'blur(8px)' : 'none',
-        borderBottom: scrolled ? '1px solid rgba(255,255,255,0.04)' : 'none',
-      }}
-    >
-      <div
-        style={{
-          maxWidth: 960, margin: '0 auto', padding: '0 24px',
-          height: 56, display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-        }}
-      >
+    <nav style={{
+      position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50,
+      transition: 'all 0.3s ease',
+      backgroundColor: scrolled ? 'rgba(10,10,10,0.9)' : 'transparent',
+      backdropFilter: scrolled ? 'blur(10px)' : 'none',
+      borderBottom: scrolled ? '1px solid rgba(255,255,255,0.04)' : 'none',
+    }}>
+      <div style={{
+        maxWidth: 1040, margin: '0 auto', padding: '0 24px',
+        height: 56, display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+      }}>
         <span style={{ fontFamily: 'var(--font-geist-mono)', fontSize: 13, color: '#737373' }}>
           ns<span style={{ color: '#4ade80' }}>.</span>
         </span>
-        <ul style={{ display: 'flex', gap: 32, listStyle: 'none', margin: 0, padding: 0 }}>
+        <ul style={{ display: 'flex', gap: 28, listStyle: 'none', margin: 0, padding: 0 }}>
           {NAV_LINKS.map(link => (
             <li key={link}>
-              <button
-                onClick={() => scrollTo(link)}
-                type="button"
-                style={{
-                  background: 'none', border: 'none', cursor: 'pointer',
-                  fontFamily: 'var(--font-geist-mono)', fontSize: 12, letterSpacing: 0.5,
-                  color: active === link ? '#4ade80' : '#4a4a4a',
-                  transition: 'color 0.2s', padding: '4px 0',
-                }}
+              <button type="button" onClick={() => scrollTo(link)} style={{
+                background: 'none', border: 'none', cursor: 'pointer',
+                fontFamily: 'var(--font-geist-mono)', fontSize: 11, letterSpacing: 0.5,
+                color: active === link ? '#4ade80' : '#484848',
+                transition: 'color 0.2s', padding: '4px 0',
+              }}
+                onMouseEnter={e => { if (active !== link) (e.currentTarget as HTMLElement).style.color = '#a3a3a3'; }}
+                onMouseLeave={e => { (e.currentTarget as HTMLElement).style.color = active === link ? '#4ade80' : '#484848'; }}
               >
                 {link}
               </button>
@@ -284,59 +306,66 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
-        border: `1px solid ${hovered ? 'rgba(74,222,128,0.22)' : 'rgba(255,255,255,0.05)'}`,
-        borderRadius: 8, padding: '20px',
-        backgroundColor: hovered ? 'rgba(74,222,128,0.02)' : 'transparent',
+        border: `1px solid ${hovered ? 'rgba(74,222,128,0.25)' : 'rgba(255,255,255,0.05)'}`,
+        borderRadius: 8,
+        backgroundColor: hovered ? 'rgba(74,222,128,0.02)' : 'rgba(255,255,255,0.01)',
         transition: 'all 0.2s ease',
-        display: 'flex', flexDirection: 'column', gap: 12,
+        display: 'flex', flexDirection: 'column',
+        overflow: 'hidden',
       }}
     >
-      <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
-        <Code2 size={15} color="#4ade80" />
-        <div style={{ display: 'flex', gap: 12 }}>
-          <a
-            href={project.github} target="_blank" rel="noopener noreferrer"
-            aria-label={`${project.title} on GitHub`}
-            style={{ color: '#333', transition: 'color 0.2s', display: 'flex' }}
-            onMouseEnter={e => ((e.currentTarget as HTMLElement).style.color = '#d4d4d4')}
-            onMouseLeave={e => ((e.currentTarget as HTMLElement).style.color = '#333')}
-          >
-            <FaGithub size={14} />
-          </a>
-          {project.live && (
-            <a
-              href={project.live} target="_blank" rel="noopener noreferrer"
-              aria-label={`${project.title} live demo`}
-              style={{ color: '#333', transition: 'color 0.2s', display: 'flex' }}
-              onMouseEnter={e => ((e.currentTarget as HTMLElement).style.color = '#d4d4d4')}
-              onMouseLeave={e => ((e.currentTarget as HTMLElement).style.color = '#333')}
-            >
-              <ExternalLink size={14} />
-            </a>
-          )}
+      {project.image && (
+        <div style={{ height: 140, overflow: 'hidden', borderBottom: '1px solid rgba(255,255,255,0.04)' }}>
+          <img
+            src={project.image} alt={project.title}
+            style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.55, filter: 'grayscale(30%)' }}
+          />
         </div>
-      </div>
-
-      <div>
-        <h3 style={{
-          fontSize: 15, fontWeight: 500, margin: '0 0 6px',
-          color: hovered ? '#4ade80' : '#e5e5e5', transition: 'color 0.2s',
-        }}>
-          {project.title}
-        </h3>
-        <p style={{ fontSize: 13, color: '#4a4a4a', lineHeight: 1.65, margin: 0 }}>
-          {project.description}
-        </p>
-      </div>
-
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 'auto' }}>
-        {project.tech.map(t => (
-          <span key={t} style={{
-            fontFamily: 'var(--font-geist-mono)', fontSize: 11, color: '#3a3a3a',
+      )}
+      <div style={{ padding: '18px 20px', display: 'flex', flexDirection: 'column', gap: 10, flex: 1 }}>
+        <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
+          <Code2 size={14} color="#4ade80" />
+          <div style={{ display: 'flex', gap: 12 }}>
+            <a
+              href={project.github} target="_blank" rel="noopener noreferrer"
+              aria-label={`${project.title} on GitHub`}
+              style={{ color: '#383838', transition: 'color 0.2s', display: 'flex' }}
+              onMouseEnter={e => ((e.currentTarget as HTMLElement).style.color = '#d4d4d4')}
+              onMouseLeave={e => ((e.currentTarget as HTMLElement).style.color = '#383838')}
+            >
+              <FaGithub size={14} />
+            </a>
+            {project.live && (
+              <a
+                href={project.live} target="_blank" rel="noopener noreferrer"
+                aria-label={`${project.title} live demo`}
+                style={{ color: '#383838', transition: 'color 0.2s', display: 'flex' }}
+                onMouseEnter={e => ((e.currentTarget as HTMLElement).style.color = '#d4d4d4')}
+                onMouseLeave={e => ((e.currentTarget as HTMLElement).style.color = '#383838')}
+              >
+                <ExternalLink size={14} />
+              </a>
+            )}
+          </div>
+        </div>
+        <div>
+          <h3 style={{
+            fontSize: 14, fontWeight: 500, margin: '0 0 5px',
+            color: hovered ? '#4ade80' : '#e0e0e0', transition: 'color 0.2s',
           }}>
-            {t}
-          </span>
-        ))}
+            {project.title}
+          </h3>
+          <p style={{ fontSize: 12.5, color: '#484848', lineHeight: 1.65, margin: 0 }}>
+            {project.description}
+          </p>
+        </div>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginTop: 'auto', paddingTop: 4 }}>
+          {project.tech.map(t => (
+            <span key={t} style={{ fontFamily: 'var(--font-geist-mono)', fontSize: 10, color: '#383838' }}>
+              {t}
+            </span>
+          ))}
+        </div>
       </div>
     </div>
   );
@@ -356,15 +385,14 @@ export default function Portfolio() {
         alignItems: 'center', justifyContent: 'center', overflow: 'hidden',
       }}>
         <BinaryTree />
-
-        {/* Vignette — fades tree at bottom so it blends into page */}
+        {/* Bottom vignette */}
         <div style={{
           position: 'absolute', inset: 0, pointerEvents: 'none',
-          background: 'radial-gradient(ellipse 100% 55% at 50% 100%, transparent 0%, #0a0a0a 65%)',
+          background: 'radial-gradient(ellipse 120% 60% at 50% 100%, transparent 20%, #0a0a0a 70%)',
         }} />
         {/* Top fade */}
         <div style={{
-          position: 'absolute', top: 0, left: 0, right: 0, height: 160, pointerEvents: 'none',
+          position: 'absolute', top: 0, left: 0, right: 0, height: 140, pointerEvents: 'none',
           background: 'linear-gradient(to bottom, #0a0a0a 0%, transparent 100%)',
         }} />
 
@@ -408,48 +436,52 @@ export default function Portfolio() {
           </div>
         </div>
 
-        {/* Scroll hint */}
         <div style={{
           position: 'absolute', bottom: 36, left: '50%',
-          transform: 'translateX(-50%)',
-          animation: 'nudge 2.5s ease-in-out infinite',
+          transform: 'translateX(-50%)', animation: 'nudge 2.5s ease-in-out infinite',
         }}>
           <div style={{
             width: 1, height: 44,
-            background: 'linear-gradient(to bottom, transparent, rgba(74,222,128,0.35))',
+            background: 'linear-gradient(to bottom, transparent, rgba(74,222,128,0.4))',
           }} />
         </div>
       </section>
 
       {/* ── About ── */}
-      <section id="about" style={{ maxWidth: 960, margin: '0 auto', padding: '96px 24px' }}>
+      <section id="about" style={{ maxWidth: 1040, margin: '0 auto', padding: '96px 24px' }}>
         <SectionLabel>// about</SectionLabel>
         <div style={{
           display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-          gap: 48, alignItems: 'start',
+          gap: 56, alignItems: 'start',
         }}>
-          <div>
-            <p style={{ fontSize: 17, color: '#c0c0c0', lineHeight: 1.75, marginBottom: 14, fontWeight: 300 }}>
-              Hi, I&apos;m Navneet. I build things for the web — from full-stack applications
-              to distributed systems and cloud infrastructure.
-            </p>
-            <p style={{ fontSize: 14, color: '#4a4a4a', lineHeight: 1.75, marginBottom: 28 }}>
-              I care about clean code, good architecture, and software that actually works.
-              Currently exploring AI applications, DevOps tooling, and backend systems with Go.
-            </p>
-            <a
-              href="https://github.com/Navneet072300" target="_blank" rel="noreferrer"
-              style={{
-                display: 'inline-flex', alignItems: 'center', gap: 6,
-                fontFamily: 'var(--font-geist-mono)', fontSize: 12, color: '#4ade80',
-                textDecoration: 'none', borderBottom: '1px solid rgba(74,222,128,0.3)',
-                paddingBottom: 2,
-              }}
-            >
-              View all projects <ArrowUpRight size={12} />
-            </a>
+          {/* Photo + bio */}
+          <div style={{ display: 'flex', gap: 28, alignItems: 'flex-start' }}>
+            <div style={{ flexShrink: 0 }}>
+              <Image
+                src="/profile.jpg" alt="Navneet Shahi"
+                width={88} height={88}
+                style={{
+                  borderRadius: '50%', objectFit: 'cover',
+                  border: '1px solid rgba(74,222,128,0.18)',
+                  filter: 'grayscale(20%)',
+                }}
+              />
+            </div>
+            <div>
+              <h2 style={{ fontSize: 18, fontWeight: 400, color: '#e0e0e0', margin: '0 0 6px' }}>
+                Navneet Shahi
+              </h2>
+              <p style={{ fontFamily: 'var(--font-geist-mono)', fontSize: 11, color: '#4ade80', margin: '0 0 14px' }}>
+                Full Stack · DevOps · Open Source
+              </p>
+              <p style={{ fontSize: 14, color: '#585858', lineHeight: 1.75, margin: 0 }}>
+                I build things for the web — from full-stack applications to distributed systems and cloud infrastructure.
+                Currently exploring AI applications, DevOps tooling, and backend systems with Go.
+              </p>
+            </div>
           </div>
 
+          {/* Skills */}
           <div>
             <p style={{
               fontFamily: 'var(--font-geist-mono)', fontSize: 10, color: '#2e2e2e',
@@ -468,39 +500,217 @@ export default function Portfolio() {
                   }}
                   onMouseEnter={e => {
                     const el = e.currentTarget as HTMLElement;
-                    el.style.color = '#86efac';
-                    el.style.borderColor = 'rgba(74,222,128,0.18)';
+                    el.style.color = '#86efac'; el.style.borderColor = 'rgba(74,222,128,0.2)';
                   }}
                   onMouseLeave={e => {
                     const el = e.currentTarget as HTMLElement;
-                    el.style.color = '#404040';
-                    el.style.borderColor = '#161616';
+                    el.style.color = '#404040'; el.style.borderColor = '#161616';
                   }}
                 >
                   {skill}
                 </span>
               ))}
             </div>
+            <div style={{ marginTop: 24 }}>
+              <a
+                href="/resume.pdf" target="_blank" rel="noopener noreferrer"
+                style={{
+                  display: 'inline-flex', alignItems: 'center', gap: 6,
+                  fontFamily: 'var(--font-geist-mono)', fontSize: 11, color: '#4a4a4a',
+                  border: '1px solid #1a1a1a', borderRadius: 4, padding: '6px 14px',
+                  textDecoration: 'none', transition: 'all 0.2s',
+                }}
+                onMouseEnter={e => {
+                  const el = e.currentTarget as HTMLElement;
+                  el.style.color = '#4ade80'; el.style.borderColor = 'rgba(74,222,128,0.2)';
+                }}
+                onMouseLeave={e => {
+                  const el = e.currentTarget as HTMLElement;
+                  el.style.color = '#4a4a4a'; el.style.borderColor = '#1a1a1a';
+                }}
+              >
+                <ArrowUpRight size={11} /> view resume
+              </a>
+            </div>
           </div>
+        </div>
+      </section>
+
+      {/* ── Experience ── */}
+      <section id="experience" style={{
+        maxWidth: 1040, margin: '0 auto', padding: '96px 24px',
+        borderTop: '1px solid #111',
+      }}>
+        <SectionLabel>// experience</SectionLabel>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
+          {EXPERIENCE.map((exp, i) => (
+            <div key={i} style={{ display: 'grid', gridTemplateColumns: '200px 1fr', gap: 32, alignItems: 'start' }}>
+              {/* Timeline left */}
+              <div style={{ paddingTop: 4 }}>
+                <p style={{
+                  fontFamily: 'var(--font-geist-mono)', fontSize: 11, color: '#4ade80',
+                  marginBottom: 4,
+                }}>
+                  {exp.period}
+                </p>
+                <p style={{ fontFamily: 'var(--font-geist-mono)', fontSize: 10, color: '#2e2e2e' }}>
+                  {exp.location}
+                </p>
+              </div>
+              {/* Content right */}
+              <div style={{
+                borderLeft: '1px solid #1a1a1a', paddingLeft: 28,
+                paddingBottom: 40, position: 'relative',
+              }}>
+                {/* Dot */}
+                <div style={{
+                  position: 'absolute', left: -5, top: 6,
+                  width: 9, height: 9, borderRadius: '50%',
+                  backgroundColor: '#4ade80', boxShadow: '0 0 8px rgba(74,222,128,0.5)',
+                }} />
+                <h3 style={{ fontSize: 16, fontWeight: 500, color: '#e0e0e0', margin: '0 0 3px' }}>
+                  {exp.role}
+                </h3>
+                <p style={{
+                  fontFamily: 'var(--font-geist-mono)', fontSize: 12, color: '#525252', marginBottom: 14,
+                }}>
+                  {exp.company}
+                </p>
+                <ul style={{ margin: 0, padding: '0 0 0 16px', listStyle: 'none' }}>
+                  {exp.points.map((pt, j) => (
+                    <li key={j} style={{
+                      fontSize: 13.5, color: '#4a4a4a', lineHeight: 1.7, marginBottom: 6,
+                      display: 'flex', gap: 8, alignItems: 'flex-start',
+                    }}>
+                      <span style={{ color: '#2a3e2a', marginTop: 3, flexShrink: 0 }}>▸</span>
+                      {pt}
+                    </li>
+                  ))}
+                </ul>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginTop: 14 }}>
+                  {exp.tech.map(t => (
+                    <span key={t} style={{
+                      fontFamily: 'var(--font-geist-mono)', fontSize: 10, color: '#383838',
+                      border: '1px solid #161616', borderRadius: 3, padding: '2px 8px',
+                    }}>
+                      {t}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 
       {/* ── Projects ── */}
       <section id="projects" style={{
-        maxWidth: 960, margin: '0 auto', padding: '96px 24px',
+        maxWidth: 1040, margin: '0 auto', padding: '96px 24px',
         borderTop: '1px solid #111',
       }}>
         <SectionLabel>// projects</SectionLabel>
         <div style={{
-          display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 14,
+          display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(290px, 1fr))', gap: 14,
         }}>
           {PROJECTS.map(project => <ProjectCard key={project.title} project={project} />)}
         </div>
       </section>
 
+      {/* ── Open Source ── */}
+      <section id="opensource" style={{
+        maxWidth: 1040, margin: '0 auto', padding: '96px 24px',
+        borderTop: '1px solid #111',
+      }}>
+        <SectionLabel>// open source</SectionLabel>
+        <p style={{ fontSize: 14, color: '#4a4a4a', lineHeight: 1.75, marginBottom: 40, maxWidth: 560 }}>
+          I contribute to open source projects in my spare time — mostly around infrastructure,
+          developer tooling, and cloud-native ecosystems.
+        </p>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+          {OSS.map(contrib => (
+            <a
+              key={contrib.project}
+              href={contrib.url} target="_blank" rel="noopener noreferrer"
+              style={{
+                display: 'block', textDecoration: 'none',
+                border: '1px solid rgba(255,255,255,0.05)',
+                borderRadius: 8, padding: '20px 24px',
+                backgroundColor: 'rgba(255,255,255,0.01)',
+                transition: 'all 0.2s',
+              }}
+              onMouseEnter={e => {
+                const el = e.currentTarget as HTMLElement;
+                el.style.borderColor = 'rgba(74,222,128,0.2)';
+                el.style.backgroundColor = 'rgba(74,222,128,0.02)';
+              }}
+              onMouseLeave={e => {
+                const el = e.currentTarget as HTMLElement;
+                el.style.borderColor = 'rgba(255,255,255,0.05)';
+                el.style.backgroundColor = 'rgba(255,255,255,0.01)';
+              }}
+            >
+              <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 16 }}>
+                <div style={{ flex: 1 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 6 }}>
+                    <GitFork size={13} color="#4ade80" />
+                    <span style={{ fontFamily: 'var(--font-geist-mono)', fontSize: 11, color: '#525252' }}>
+                      {contrib.org} /
+                    </span>
+                    <span style={{ fontSize: 15, fontWeight: 500, color: '#e0e0e0' }}>
+                      {contrib.project}
+                    </span>
+                  </div>
+                  <p style={{ fontSize: 13, color: '#4a4a4a', lineHeight: 1.65, margin: '0 0 12px' }}>
+                    {contrib.description}
+                  </p>
+                  <div style={{ display: 'flex', gap: 16, alignItems: 'center' }}>
+                    <span style={{ fontFamily: 'var(--font-geist-mono)', fontSize: 11, color: '#383838' }}>
+                      {contrib.language}
+                    </span>
+                    {contrib.stars && (
+                      <span style={{
+                        display: 'flex', alignItems: 'center', gap: 4,
+                        fontFamily: 'var(--font-geist-mono)', fontSize: 11, color: '#383838',
+                      }}>
+                        <Star size={10} /> {contrib.stars}
+                      </span>
+                    )}
+                  </div>
+                </div>
+                <ArrowUpRight size={14} color="#2e2e2e" style={{ flexShrink: 0, marginTop: 4 }} />
+              </div>
+            </a>
+          ))}
+
+          {/* GitHub stats link */}
+          <a
+            href="https://github.com/Navneet072300" target="_blank" rel="noopener noreferrer"
+            style={{
+              display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
+              border: '1px dashed #1a1a1a', borderRadius: 8, padding: '16px',
+              textDecoration: 'none', transition: 'all 0.2s',
+              fontFamily: 'var(--font-geist-mono)', fontSize: 12, color: '#3a3a3a',
+            }}
+            onMouseEnter={e => {
+              const el = e.currentTarget as HTMLElement;
+              el.style.borderColor = 'rgba(74,222,128,0.15)';
+              el.style.color = '#4ade80';
+            }}
+            onMouseLeave={e => {
+              const el = e.currentTarget as HTMLElement;
+              el.style.borderColor = '#1a1a1a';
+              el.style.color = '#3a3a3a';
+            }}
+          >
+            <FaGithub size={14} />
+            view all contributions on github
+          </a>
+        </div>
+      </section>
+
       {/* ── Contact ── */}
       <section id="contact" style={{
-        maxWidth: 960, margin: '0 auto', padding: '96px 24px 120px',
+        maxWidth: 1040, margin: '0 auto', padding: '96px 24px 120px',
         borderTop: '1px solid #111',
       }}>
         <SectionLabel>// contact</SectionLabel>
@@ -541,9 +751,7 @@ export default function Portfolio() {
 
       {/* ── Footer ── */}
       <footer style={{ borderTop: '1px solid #0f0f0f', padding: '28px 24px', textAlign: 'center' }}>
-        <p style={{
-          fontFamily: 'var(--font-geist-mono)', fontSize: 11, color: '#222',
-        }}>
+        <p style={{ fontFamily: 'var(--font-geist-mono)', fontSize: 11, color: '#222' }}>
           built by navneet shahi — {new Date().getFullYear()}
         </p>
       </footer>
