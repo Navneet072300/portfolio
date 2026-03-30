@@ -167,7 +167,7 @@ const BinaryTree: React.FC = () => {
       const w = canvas.width;
       const h = canvas.height;
       // No cap — trunk scales with screen so branches fill the full hero
-      const trunkLen = h * 0.35;
+      const trunkLen = h * 0.26;
       const maxDepth = w < 768 ? 9 : 11;
       const tree = buildTree(w / 2, h, 0, trunkLen, 0, maxDepth);
       tree.started = true;
