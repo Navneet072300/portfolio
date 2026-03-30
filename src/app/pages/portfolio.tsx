@@ -350,10 +350,12 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
       }}
     >
       {project.image && (
-        <div style={{ height: 140, overflow: 'hidden', borderBottom: '1px solid rgba(255,255,255,0.04)' }}>
-          <img
+        <div style={{ height: 140, overflow: 'hidden', borderBottom: '1px solid rgba(255,255,255,0.04)', position: 'relative' }}>
+          <Image
             src={project.image} alt={project.title}
-            style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.55, filter: 'grayscale(30%)' }}
+            fill
+            sizes="(max-width: 768px) 100vw, 350px"
+            style={{ objectFit: 'cover', opacity: 0.55, filter: 'grayscale(30%)' }}
           />
         </div>
       )}
@@ -480,7 +482,7 @@ export default function Portfolio() {
 
       {/* ── About ── */}
       <section id="about" style={{ maxWidth: 1040, margin: '0 auto', padding: '96px 24px' }}>
-        <SectionLabel>// about</SectionLabel>
+        <SectionLabel>{'// about'}</SectionLabel>
         <div style={{
           display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
           gap: 56, alignItems: 'start',
@@ -572,7 +574,7 @@ export default function Portfolio() {
         maxWidth: 1040, margin: '0 auto', padding: '96px 24px',
         borderTop: '1px solid #111',
       }}>
-        <SectionLabel>// experience</SectionLabel>
+        <SectionLabel>{'// experience'}</SectionLabel>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
           {EXPERIENCE.map((exp, i) => (
             <div key={i} style={{ display: 'grid', gridTemplateColumns: '200px 1fr', gap: 32, alignItems: 'start' }}>
@@ -639,7 +641,7 @@ export default function Portfolio() {
         maxWidth: 1040, margin: '0 auto', padding: '96px 24px',
         borderTop: '1px solid #111',
       }}>
-        <SectionLabel>// projects</SectionLabel>
+        <SectionLabel>{'// projects'}</SectionLabel>
         <div style={{
           display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(290px, 1fr))', gap: 14,
         }}>
@@ -652,7 +654,7 @@ export default function Portfolio() {
         maxWidth: 1040, margin: '0 auto', padding: '96px 24px',
         borderTop: '1px solid #111',
       }}>
-        <SectionLabel>// open source</SectionLabel>
+        <SectionLabel>{'// open source'}</SectionLabel>
         <p style={{ fontSize: 14, color: '#4a4a4a', lineHeight: 1.75, marginBottom: 40, maxWidth: 560 }}>
           I contribute to open source projects in my spare time — mostly around infrastructure,
           developer tooling, and cloud-native ecosystems.
@@ -744,7 +746,7 @@ export default function Portfolio() {
         maxWidth: 1040, margin: '0 auto', padding: '96px 24px 120px',
         borderTop: '1px solid #111',
       }}>
-        <SectionLabel>// contact</SectionLabel>
+        <SectionLabel>{'// contact'}</SectionLabel>
         <div style={{ maxWidth: 460 }}>
           <h2 style={{
             fontSize: 28, fontWeight: 300, color: '#e0e0e0',
