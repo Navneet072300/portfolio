@@ -134,7 +134,7 @@ function buildTree(
   const branch: Branch = { x1: x, y1: y, x2, y2, depth, progress: 0, started: false, children: [] };
   if (depth < maxDepth) {
     const childLen = len * 0.7;
-    const spread = 20 + depth * 1.5;
+    const spread = 16 + depth * 1.0;
     branch.children = [
       buildTree(x2, y2, angleDeg - spread, childLen, depth + 1, maxDepth),
       buildTree(x2, y2, angleDeg + spread, childLen, depth + 1, maxDepth),
@@ -166,8 +166,8 @@ const BinaryTree: React.FC = () => {
       canvas.height = canvas.offsetHeight;
       const w = canvas.width;
       const h = canvas.height;
-      // Taller trunk so branches reach well into the hero text area
-      const trunkLen = Math.min(h * 0.28, 200);
+      // No cap — trunk scales with screen so branches fill the full hero
+      const trunkLen = h * 0.35;
       const maxDepth = w < 768 ? 9 : 11;
       const tree = buildTree(w / 2, h, 0, trunkLen, 0, maxDepth);
       tree.started = true;
@@ -420,15 +420,10 @@ export default function Portfolio() {
         alignItems: 'center', justifyContent: 'center', overflow: 'hidden',
       }}>
         <BinaryTree />
-        {/* Soft bottom vignette — let tree breathe into the hero text */}
+        {/* Only fade the very bottom so tree blends into the next section */}
         <div style={{
-          position: 'absolute', inset: 0, pointerEvents: 'none',
-          background: 'radial-gradient(ellipse 140% 55% at 50% 105%, transparent 30%, #0a0a0a 80%)',
-        }} />
-        {/* Very subtle top fade */}
-        <div style={{
-          position: 'absolute', top: 0, left: 0, right: 0, height: 80, pointerEvents: 'none',
-          background: 'linear-gradient(to bottom, #0a0a0a 0%, transparent 100%)',
+          position: 'absolute', bottom: 0, left: 0, right: 0, height: 120, pointerEvents: 'none',
+          background: 'linear-gradient(to top, #0a0a0a 0%, transparent 100%)',
         }} />
 
         <div style={{ position: 'relative', zIndex: 10, textAlign: 'center', padding: '0 24px' }}>
@@ -442,6 +437,7 @@ export default function Portfolio() {
             fontSize: 'clamp(44px, 9vw, 92px)', fontWeight: 300,
             letterSpacing: '-0.03em', lineHeight: 1.05,
             margin: '0 0 14px', color: '#f0f0f0',
+            textShadow: '0 0 40px rgba(10,10,10,0.9), 0 0 80px rgba(10,10,10,0.7)',
           }}>
             Navneet Shahi
           </h1>
