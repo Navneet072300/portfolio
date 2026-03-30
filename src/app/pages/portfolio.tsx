@@ -93,7 +93,7 @@ const OSS: OSSContrib[] = [
     org: 'argoproj',
     description:
       'Declarative GitOps continuous delivery tool for Kubernetes. One of the most widely used CNCF projects — contributed to the codebase and infrastructure configuration.',
-    url: 'https://github.com/Navneet072300/argo-cd',
+    url: 'https://github.com/argoproj/argo-cd/pull/26876',
     language: 'Go',
     stars: '18k+',
   },
@@ -143,9 +143,16 @@ function buildTree(
   return branch;
 }
 
+function resetBranches(b: Branch, isRoot = true) {
+  b.progress = 0;
+  b.started = isRoot;
+  b.children.forEach(c => resetBranches(c, false));
+}
+
 const BinaryTree: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const rafRef = useRef<number>(0);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const treeRef = useRef<Branch | null>(null);
 
   useEffect(() => {
@@ -159,8 +166,9 @@ const BinaryTree: React.FC = () => {
       canvas.height = canvas.offsetHeight;
       const w = canvas.width;
       const h = canvas.height;
-      const trunkLen = Math.min(h * 0.22, 160);
-      const maxDepth = w < 768 ? 8 : 10;
+      // Taller trunk so branches reach well into the hero text area
+      const trunkLen = Math.min(h * 0.28, 200);
+      const maxDepth = w < 768 ? 9 : 11;
       const tree = buildTree(w / 2, h, 0, trunkLen, 0, maxDepth);
       tree.started = true;
       treeRef.current = tree;
@@ -171,9 +179,10 @@ const BinaryTree: React.FC = () => {
 
     const updateBranch = (b: Branch): boolean => {
       if (!b.started) return true;
-      const rate = 0.02 * (0.8 + b.depth * 0.08);
+      // Slower base rate so growth is clearly visible
+      const rate = 0.014 * (0.7 + b.depth * 0.07);
       if (b.progress < 1) b.progress = Math.min(1, b.progress + rate);
-      if (b.progress >= 0.65) b.children.forEach(c => { c.started = true; });
+      if (b.progress >= 0.6) b.children.forEach(c => { c.started = true; });
       let done = b.progress >= 1;
       b.children.forEach(c => { if (!updateBranch(c)) done = false; });
       return done;
@@ -185,14 +194,13 @@ const BinaryTree: React.FC = () => {
       const ex = b.x1 + (b.x2 - b.x1) * p;
       const ey = b.y1 + (b.y2 - b.y1) * p;
 
-      // More visible: brighter alpha, thicker lines
-      const alpha = Math.max(0.12, 0.85 - (b.depth / 10) * 0.6);
-      const width = Math.max(0.5, 4 - b.depth * 0.32);
+      const alpha = Math.max(0.15, 0.9 - (b.depth / 11) * 0.62);
+      const width = Math.max(0.5, 4.5 - b.depth * 0.35);
 
-      // Glow on trunk and first few branches
-      if (b.depth < 4) {
-        ctx.shadowBlur = 8 - b.depth * 1.5;
-        ctx.shadowColor = 'rgba(74, 222, 128, 0.35)';
+      // Glow on lower depth branches
+      if (b.depth < 5) {
+        ctx.shadowBlur = Math.max(0, 10 - b.depth * 2);
+        ctx.shadowColor = 'rgba(74, 222, 128, 0.45)';
       } else {
         ctx.shadowBlur = 0;
       }
@@ -205,7 +213,28 @@ const BinaryTree: React.FC = () => {
       ctx.lineCap = 'round';
       ctx.stroke();
 
+      // Glowing growing tip on actively-growing branches
+      if (p < 1) {
+        const tipR = Math.max(1.2, 3 - b.depth * 0.2);
+        ctx.shadowBlur = 12;
+        ctx.shadowColor = 'rgba(134, 239, 172, 0.9)';
+        ctx.beginPath();
+        ctx.arc(ex, ey, tipR, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(134, 239, 172, 0.95)';
+        ctx.fill();
+        ctx.shadowBlur = 0;
+      }
+
       b.children.forEach(drawBranch);
+    };
+
+    const scheduleRestart = () => {
+      timerRef.current = setTimeout(() => {
+        if (!treeRef.current) return;
+        resetBranches(treeRef.current);
+        allDone = false;
+        rafRef.current = requestAnimationFrame(render);
+      }, 1800);
     };
 
     const render = () => {
@@ -214,13 +243,18 @@ const BinaryTree: React.FC = () => {
       if (!allDone) allDone = updateBranch(treeRef.current);
       drawBranch(treeRef.current);
       ctx.shadowBlur = 0;
-      if (!allDone) rafRef.current = requestAnimationFrame(render);
+      if (!allDone) {
+        rafRef.current = requestAnimationFrame(render);
+      } else {
+        scheduleRestart();
+      }
     };
 
     rafRef.current = requestAnimationFrame(render);
 
     const onResize = () => {
       cancelAnimationFrame(rafRef.current);
+      if (timerRef.current) clearTimeout(timerRef.current);
       allDone = false;
       init();
       rafRef.current = requestAnimationFrame(render);
@@ -229,6 +263,7 @@ const BinaryTree: React.FC = () => {
     window.addEventListener('resize', onResize);
     return () => {
       cancelAnimationFrame(rafRef.current);
+      if (timerRef.current) clearTimeout(timerRef.current);
       window.removeEventListener('resize', onResize);
     };
   }, []);
@@ -385,14 +420,14 @@ export default function Portfolio() {
         alignItems: 'center', justifyContent: 'center', overflow: 'hidden',
       }}>
         <BinaryTree />
-        {/* Bottom vignette */}
+        {/* Soft bottom vignette — let tree breathe into the hero text */}
         <div style={{
           position: 'absolute', inset: 0, pointerEvents: 'none',
-          background: 'radial-gradient(ellipse 120% 60% at 50% 100%, transparent 20%, #0a0a0a 70%)',
+          background: 'radial-gradient(ellipse 140% 55% at 50% 105%, transparent 30%, #0a0a0a 80%)',
         }} />
-        {/* Top fade */}
+        {/* Very subtle top fade */}
         <div style={{
-          position: 'absolute', top: 0, left: 0, right: 0, height: 140, pointerEvents: 'none',
+          position: 'absolute', top: 0, left: 0, right: 0, height: 80, pointerEvents: 'none',
           background: 'linear-gradient(to bottom, #0a0a0a 0%, transparent 100%)',
         }} />
 
@@ -682,9 +717,9 @@ export default function Portfolio() {
             </a>
           ))}
 
-          {/* GitHub stats link */}
+          {/* PR link */}
           <a
-            href="https://github.com/Navneet072300" target="_blank" rel="noopener noreferrer"
+            href="https://github.com/argoproj/argo-cd/pull/26876" target="_blank" rel="noopener noreferrer"
             style={{
               display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
               border: '1px dashed #1a1a1a', borderRadius: 8, padding: '16px',
@@ -703,7 +738,7 @@ export default function Portfolio() {
             }}
           >
             <FaGithub size={14} />
-            view all contributions on github
+            view the contribution
           </a>
         </div>
       </section>
