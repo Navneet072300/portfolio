@@ -45,45 +45,39 @@ const PROJECTS: Project[] = [
     github: 'https://github.com/Navneet072300/arc',
   },
   {
-    title: 'StoreIt',
+    title: 'Relay',
     description:
-      'Cloud file storage and management app — upload, organize, and share files with a clean Next.js interface.',
-    tech: ['Next.js', 'TypeScript', 'Appwrite'],
-    github: 'https://github.com/Navneet072300/storeIt',
-    live: 'https://store-it-omega.vercel.app',
-    image: '/store.png',
+      'Render/Railway-style deployment platform — connect a GitHub repo, get a live URL. Ephemeral Kaniko builds, NATS JetStream + Redis async pipeline, zero-downtime metric-gated rollouts, gVisor-sandboxed multi-tenant isolation, and full OTel tracing.',
+    tech: ['Go', 'Kubernetes', 'NATS JetStream', 'Next.js'],
+    github: 'https://github.com/Navneet072300/Relay',
   },
   {
-    title: 'Disaster Recovery',
+    title: 'CollabEdit',
     description:
-      'Terraform multi-region AWS infrastructure with Route 53 DNS failover, RDS cross-region read replica, and S3 cross-region replication.',
-    tech: ['Terraform', 'AWS', 'HCL', 'Route 53'],
-    github: 'https://github.com/Navneet072300/disaster-recovery',
-    image: '/terraform.png',
+      'Real-time collaborative code editor with Operational Transform conflict resolution, WebSocket collaboration, multi-language code execution, and a VS Code-style file tree. Deployed on Amazon EKS via Terraform.',
+    tech: ['Next.js', 'FastAPI', 'WebSockets', 'EKS'],
+    github: 'https://github.com/Navneet072300/CollabEdit',
   },
   {
-    title: 'Code-Craft',
+    title: 'QueueForge',
     description:
-      'VS Code-like code editor in the browser with syntax highlighting, multiple themes, and multi-language support.',
-    tech: ['Next.js', 'TypeScript', 'Tailwind'],
-    github: 'https://github.com/Navneet072300/code-craft',
-    live: 'https://code-craft-navy.vercel.app',
-    image: '/code.png',
+      'Production-grade distributed job queue built from first principles — priority queues, cron scheduling, exponential-backoff retries, distributed locking, and a real-time dashboard.',
+    tech: ['FastAPI', 'PostgreSQL', 'Redis', 'Next.js'],
+    github: 'https://github.com/Navneet072300/queueforge',
   },
   {
-    title: 'Scrapeflow',
+    title: 'Mini-Kubernetes-Clone',
     description:
-      'Visual workflow automation platform for web scraping — drag and drop nodes to build scraping pipelines without code.',
-    tech: ['Next.js', 'TypeScript', 'Prisma'],
-    github: 'https://github.com/Navneet072300/scrapeflow',
-    image: '/scrapper.jpeg',
+      'A Kubernetes-inspired container scheduler and orchestrator written from scratch in Python — real Docker workloads or a built-in simulation layer when Docker is unavailable. No Kubernetes dependency.',
+    tech: ['Python', 'FastAPI', 'Docker'],
+    github: 'https://github.com/Navneet072300/Mini-Kubernetes-Clone',
   },
   {
-    title: 'PrepBot',
+    title: 'AI Code Reviewer',
     description:
-      'AI-powered mock interview platform with real-time feedback and personalized question generation.',
-    tech: ['Next.js', 'TypeScript', 'AI'],
-    github: 'https://github.com/Navneet072300/PrepBot',
+      'AI-powered tool that reads, explains, debugs, and reviews code — paste a snippet or drop a GitHub repo URL for a full architectural analysis, with streaming responses and unit test generation.',
+    tech: ['Next.js', 'FastAPI', 'TypeScript', 'Ollama'],
+    github: 'https://github.com/Navneet072300/code-review',
   },
 ];
 
